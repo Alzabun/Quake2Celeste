@@ -267,7 +267,7 @@ void CL_AdjustAngles (void)
 }
 
 /*
-================
+================ // ME: movement
 CL_BaseMove
 
 Send the intended movement message to the server

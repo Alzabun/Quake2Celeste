@@ -1559,7 +1559,7 @@ void PrintPmove (pmove_t *pm)
 	Com_Printf ("sv %3i:%i %i\n", pm->cmd.impulse, c1, c2);
 }
 
-/*
+/* // ME: important for jumping?
 ==============
 ClientThink
 
@@ -1651,9 +1651,11 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		if (ent->groundentity && !pm.groundentity && (pm.cmd.upmove >= 10) && (pm.waterlevel == 0))
 		{
+			ent->stamina = 0;
 			gi.sound(ent, CHAN_VOICE, gi.soundindex("*jump1.wav"), 1, ATTN_NORM, 0);
 			PlayerNoise(ent, ent->s.origin, PNOISE_SELF);
 		}
+		// ME: from what i understand, if player is touching ground, whatever pm is, and up is held(?), and not in water
 
 		ent->viewheight = pm.viewheight;
 		ent->waterlevel = pm.waterlevel;

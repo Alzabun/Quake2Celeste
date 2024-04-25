@@ -547,7 +547,7 @@ void SP_trigger_gravity (edict_t *self)
 	self->gravity = atoi(st.gravity);
 	self->touch = trigger_gravity_touch;
 }
-
+// ME: im pretty sure collision stuff is in here
 
 /*
 ==============================================================================
@@ -583,7 +583,7 @@ void trigger_monsterjump_touch (edict_t *self, edict_t *other, cplane_t *plane, 
 	other->velocity[2] = self->movedir[2];
 }
 
-void SP_trigger_monsterjump (edict_t *self)
+void SP_trigger_monsterjump (edict_t *self) // ME: is this for player jumping?
 {
 	if (!self->speed)
 		self->speed = 200;
