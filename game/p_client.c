@@ -1589,6 +1589,32 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 	pm_passent = ent;
 
+	/*if (ent->stamina < 10 && ent->stamina >= 0) {
+		if (ent->starttime <= 0) {
+			ent->starttime = level.time;
+		}
+		ent->test = (ent->starttime - level.time) / 1000;
+		if (ent->test >= 1) {
+			if (ent->floating) {
+				ent->stamina -= 1;
+			}
+			else {
+				ent->stamina += 1;
+			}
+			ent->starttime = level.time;
+		}
+	}*/
+
+	if (ent->stamina < 0) {
+		ent->stamina = 0;
+	}
+
+	if (ent->stamina < 10 && ent->stamina >= 0) {
+		if (ent->floating) {
+			ent->stamina = 1;
+		}
+	}
+
 	if (ent->client->chase_target) {
 
 		client->resp.cmd_angles[0] = SHORT2ANGLE(ucmd->angles[0]);
@@ -1601,7 +1627,12 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		memset (&pm, 0, sizeof(pm));
 
 		if (ent->movetype == MOVETYPE_NOCLIP)
-			client->ps.pmove.pm_type = PM_SPECTATOR;
+			if (ent->dream) { // ME: im not sure if i can get this to work how i want ever
+				client->ps.pmove.pm_type = PM_NORMAL;
+			}
+			else {
+				client->ps.pmove.pm_type = PM_SPECTATOR;
+			}
 		else if (ent->s.modelindex != 255)
 			client->ps.pmove.pm_type = PM_GIB;
 		else if (ent->deadflag)
@@ -1609,7 +1640,21 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		else
 			client->ps.pmove.pm_type = PM_NORMAL;
 
-		client->ps.pmove.gravity = sv_gravity->value;
+		if (ent->groundentity) {
+			ent->floating = false;
+		}
+
+		if (ent->floating && ent->stamina > 0) { // ME: for float
+			client->ps.pmove.gravity = 0;
+			//ent->stamina -= (int)((ent->starttime - level.time))/1000; // i dont think this is calculating correctly
+		}
+		else {
+			if (ent->floating) {
+				ent->floating = false;
+			}
+			client->ps.pmove.gravity = sv_gravity->value;
+		}
+		
 		pm.s = client->ps.pmove;
 
 		for (i=0 ; i<3 ; i++)
@@ -1651,7 +1696,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		if (ent->groundentity && !pm.groundentity && (pm.cmd.upmove >= 10) && (pm.waterlevel == 0))
 		{
-			ent->stamina = 0;
+			//ent->stamina = 10;
 			gi.sound(ent, CHAN_VOICE, gi.soundindex("*jump1.wav"), 1, ATTN_NORM, 0);
 			PlayerNoise(ent, ent->s.origin, PNOISE_SELF);
 		}
@@ -1661,8 +1706,11 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		ent->waterlevel = pm.waterlevel;
 		ent->watertype = pm.watertype;
 		ent->groundentity = pm.groundentity;
-		if (pm.groundentity)
+		if (pm.groundentity){
 			ent->groundentity_linkcount = pm.groundentity->linkcount;
+			ent->stamina = 10;
+			ent->dashed = false;
+		}
 
 		if (ent->deadflag)
 		{
@@ -1678,7 +1726,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		gi.linkentity (ent);
 
-		if (ent->movetype != MOVETYPE_NOCLIP)
+		if (ent->movetype != MOVETYPE_NOCLIP && !ent->dream)
 			G_TouchTriggers (ent);
 
 		// touch other objects
@@ -1694,7 +1742,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 				continue;
 			other->touch (other, ent, NULL, NULL);
 		}
-
+			
 	}
 
 	client->oldbuttons = client->buttons;

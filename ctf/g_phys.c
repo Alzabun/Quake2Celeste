@@ -168,7 +168,7 @@ int ClipVelocity (vec3_t in, vec3_t normal, vec3_t out, float overbounce)
 	return blocked;
 }
 
-
+// ME: vvvvv wall detection?
 /*
 ============
 SV_FlyMove

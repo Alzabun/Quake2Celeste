@@ -831,7 +831,7 @@ void Cmd_Say_f (edict_t *ent, qboolean team, qboolean arg0)
 
         if (level.time < cl->flood_locktill) {
 			gi.cprintf(ent, PRINT_HIGH, "You can't talk for %d more seconds\n",
-				(int)(cl->flood_locktill - level.time));
+				(int)(cl->flood_locktill - level.time)); // ME: this is how to track time (well at least one way)
             return;
         }
         i = cl->flood_whenhead - flood_msgs->value + 1;
@@ -900,20 +900,16 @@ void Cmd_PlayerList_f(edict_t *ent)
 
 void Cmd_Dash_f(edict_t *ent) {
 	vec3_t forward, right;
-	if (!ent) {
+	if (!ent || ent->groundentity || ent->dashed || ent->stamina < 1) { // limit of 1 dash in the air
 		return;
 	}
 
-	//stamina resetting is in clientthink, but with the way it is you can only dash while jumping
-
-	if (ent->stamina > 2) { // limit of 1 dash in the air
-		return;
-	}
-
+	//stamina resetting is in clientthink, but with the way it is you can only dash in the air
+	ent->stamina -= 5;
+	ent->dashed = true;
 	AngleVectors(ent->client->v_angle, forward, right, NULL); // handles what direction and angle the thing will come out from (not sure if i need this for movement abilities)
 	for (int i = 0; i < 3; i++) { // velocity is an array in x, y, and z, so this applies to every direction after finding the angle from anglevector
-		ent->velocity[i] += forward[i] * 500; // friction still applies so it works better in air (which is fine)
-		ent->stamina++;
+		ent->velocity[i] += forward[i] * 500;
 		//gi.cprintf(ent, PRINT_HIGH, stamina);
 	}
 	//ent->velocity[0] = 0; // x-direction?
@@ -922,43 +918,137 @@ void Cmd_Dash_f(edict_t *ent) {
 
 }
 
+void Cmd_Slide_f(edict_t *ent){
+	vec3_t forward, right;
+
+	if (!ent) {
+		return;
+	}
+
+	if (ent->client->ps.pmove.pm_flags & PMF_DUCKED) { // you can only slide while crouched already
+		AngleVectors(ent->client->v_angle, forward, right, NULL);
+		for (int i = 0; i < 3; i++) {
+			ent->velocity[i] += forward[i] * 750; // maybe figure out how to lessen friction while sliding if theres time
+		}
+	} // maybe dont make touching the ground the only way to gain stamina back cus of things like this where you're always on the ground
+}
+
+void Cmd_Climb_f(edict_t* ent) {
+
+	//gi.cprintf(ent, PRINT_CHAT, "tr.fraction value:\n", tr.fraction); // this can also be used to print out ui stuff in general
+
+	vec3_t start, end, right, forward;
+	trace_t trace;
+	vec3_t small = {0.1, 0.1, 0.1}; // can replace ent->mins and ent->maxs but i didnt test it yet
+	vec3_t distance;
+
+	if (!ent || ent->stamina <= 0) {
+		return;
+	}
+
+	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs, end, ent, MASK_SOLID);
+	VectorSubtract(ent->s.origin, trace.endpos, distance); // im not sure if its this or the trace part but the collision detection is really inconsistent
+	// or maybe the vectorlength < 100 is too short? too big?
+	if (VectorLength(distance) < 100) { // oh my god it works (for the most part, but thats good enough)
+		AngleVectors(ent->client->v_angle, forward, right, NULL);
+		ent->velocity[2] = 0; // test to reset gravity
+		ent->velocity[2] += 300;
+		ent->stamina--;
+	}
+	// make sure to add stamina managing after like 10 climbs or something
+
+	/*
+	if (trace.fraction < 1) {
+		AngleVectors(ent->client->v_angle, forward, right, NULL);
+		for (int i = 0; i < 3; i++) {
+			ent->velocity[2] += 100;
+		}
+	}*/
+
+
+}
+
+void Cmd_Dream_f(edict_t* ent) {
+	char* msg;
+
+	if (ent->dream) {
+		ent->dream = false;
+		ent->movetype = MOVETYPE_WALK;
+		msg = "dream OFF\n";
+	}
+	else {
+		ent->dream = true;
+		ent->movetype = MOVETYPE_NOCLIP;
+		msg = "dream ON\n";
+	}
+	// meant to disable collision checking as long as its on
+	// (make it so that it can only be turend on while in the air/dashing)
+	gi.cprintf(ent, PRINT_HIGH, msg);
+}
+
+void Cmd_Float_f(edict_t* ent) { // float like silver from sonic 06 (not really a celeste thing but well im kind of limited here)
+	
+	if (!ent || ent->groundentity) {
+		return;
+	}
+
+	if (ent->floating) { // float changes gravity in p_client.c
+		ent->floating = false;
+	}
+	else {
+		ent->stamina--;
+		//ent->starttime = level.time + 0.1; // prevent same time
+		ent->velocity[2] = 0;
+		ent->floating = true;
+	}
+}
+
+void Cmd_Time_f(edict_t* ent) {
+	if (!ent) {
+		return;
+	}
+
+	gi.cprintf(ent, PRINT_CHAT, "time: %i\n", (int)ent->test);
+	gi.cprintf(ent, PRINT_CHAT, "level time: %i\n", (int)level.time);
+}
+
 /*
 =================
-ClientCommand
+ClientCommandf
 =================
 */
-void ClientCommand (edict_t *ent)
+void ClientCommand(edict_t* ent)
 {
-	char	*cmd;
+	char* cmd;
 
 	if (!ent->client)
 		return;		// not fully in game yet
 
 	cmd = gi.argv(0);
 
-	if (Q_stricmp (cmd, "players") == 0)
+	if (Q_stricmp(cmd, "players") == 0)
 	{
-		Cmd_Players_f (ent);
+		Cmd_Players_f(ent);
 		return;
 	}
-	if (Q_stricmp (cmd, "say") == 0)
+	if (Q_stricmp(cmd, "say") == 0)
 	{
-		Cmd_Say_f (ent, false, false);
+		Cmd_Say_f(ent, false, false);
 		return;
 	}
-	if (Q_stricmp (cmd, "say_team") == 0)
+	if (Q_stricmp(cmd, "say_team") == 0)
 	{
-		Cmd_Say_f (ent, true, false);
+		Cmd_Say_f(ent, true, false);
 		return;
 	}
-	if (Q_stricmp (cmd, "score") == 0)
+	if (Q_stricmp(cmd, "score") == 0)
 	{
-		Cmd_Score_f (ent);
+		Cmd_Score_f(ent);
 		return;
 	}
-	if (Q_stricmp (cmd, "help") == 0)
+	if (Q_stricmp(cmd, "help") == 0)
 	{
-		Cmd_Help_f (ent);
+		Cmd_Help_f(ent);
 		return;
 	}
 
@@ -1009,8 +1099,18 @@ void ClientCommand (edict_t *ent)
 		Cmd_Wave_f(ent);
 	else if (Q_stricmp(cmd, "playerlist") == 0)
 		Cmd_PlayerList_f(ent);
-	else if (Q_stricmp(cmd, "dash") == 0) // ME: idk
+	else if (Q_stricmp(cmd, "dash") == 0)
 		Cmd_Dash_f(ent);
+	else if (Q_stricmp(cmd, "slide") == 0)
+		Cmd_Slide_f(ent);
+	else if (Q_stricmp(cmd, "climb") == 0)
+		Cmd_Climb_f(ent);
+	else if (Q_stricmp(cmd, "dream") == 0)
+		Cmd_Dream_f(ent);
+	else if (Q_stricmp(cmd, "float") == 0)
+		Cmd_Float_f(ent);
+	else if (Q_stricmp(cmd, "time") == 0)
+		Cmd_Time_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

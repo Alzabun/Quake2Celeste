@@ -582,7 +582,7 @@ void P_WorldEffects (void)
 	qboolean	envirosuit;
 	int			waterlevel, old_waterlevel;
 
-	if (current_player->movetype == MOVETYPE_NOCLIP)
+	if (current_player->movetype == MOVETYPE_NOCLIP && !current_player->dream) // ME: i dont think this is important
 	{
 		current_player->air_finished = level.time + 12;	// don't need air
 		return;

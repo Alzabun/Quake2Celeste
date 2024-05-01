@@ -117,10 +117,14 @@ SV_Impact
 Two entities have touched, so run their touch functions
 ==================
 */
-void SV_Impact (edict_t *e1, trace_t *trace)
+void SV_Impact (edict_t *e1, trace_t *trace) // ME: i think this is only meant for things that arent walls and floors
 {
 	edict_t		*e2;
 //	cplane_t	backplane;
+
+	if (e1->dream) {
+		return;
+	}
 
 	e2 = trace->ent;
 
@@ -147,6 +151,7 @@ int ClipVelocity (vec3_t in, vec3_t normal, vec3_t out, float overbounce)
 	float	backoff;
 	float	change;
 	int		i, blocked;
+
 	
 	blocked = 0;
 	if (normal[2] > 0)
@@ -207,6 +212,7 @@ int SV_FlyMove (edict_t *ent, float time, int mask)
 	ent->groundentity = NULL;
 	for (bumpcount=0 ; bumpcount<numbumps ; bumpcount++)
 	{
+
 		for (i=0 ; i<3 ; i++)
 			end[i] = ent->s.origin[i] + time_left * ent->velocity[i];
 
@@ -319,8 +325,14 @@ SV_AddGravity
 
 ============
 */
-void SV_AddGravity (edict_t *ent)
+void SV_AddGravity (edict_t *ent) // ME: uhh
 {
+	/*if (ent->floating) {
+		ent->velocity[2] -= 0.2 * FRAMETIME;
+	}
+	else {
+		ent->velocity[2] -= ent->gravity * sv_gravity->value * FRAMETIME;
+	}*/
 	ent->velocity[2] -= ent->gravity * sv_gravity->value * FRAMETIME;
 }
 
@@ -659,7 +671,7 @@ TOSS / BOUNCE
 
 ==============================================================================
 */
-
+// ME: if an entity (like a player) is in the air
 /*
 =============
 SV_Physics_Toss
@@ -944,7 +956,7 @@ void G_RunEntity (edict_t *ent)
 		SV_Physics_None (ent);
 		break;
 	case MOVETYPE_NOCLIP:
-		SV_Physics_Noclip (ent);
+		SV_Physics_Noclip (ent); // ME: is this even important for players??
 		break;
 	case MOVETYPE_STEP:
 		SV_Physics_Step (ent);

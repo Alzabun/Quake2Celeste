@@ -1109,8 +1109,13 @@ struct edict_s
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
-	//idk 
+	//ME: movement managemenet
 	int stamina;
+	qboolean dream;
+	qboolean dashed;
+	qboolean floating;
+	int starttime;
+	int test;
 
 };
 

@@ -547,7 +547,6 @@ void SP_trigger_gravity (edict_t *self)
 	self->gravity = atoi(st.gravity);
 	self->touch = trigger_gravity_touch;
 }
-// ME: im pretty sure collision stuff is in here
 
 /*
 ==============================================================================

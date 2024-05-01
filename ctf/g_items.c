@@ -861,7 +861,7 @@ static void drop_make_touchable (edict_t *ent)
 		ent->think = G_FreeEdict;
 	}
 }
-
+// me: could be useful for collectibles
 edict_t *Drop_Item (edict_t *ent, gitem_t *item)
 {
 	edict_t	*dropped;

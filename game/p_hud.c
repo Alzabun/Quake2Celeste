@@ -314,7 +314,8 @@ void HelpComputer (edict_t *ent)
 		sk = "hard+";
 
 	// send the layout
-	Com_sprintf (string, sizeof(string),
+	Com_sprintf (string, sizeof(string), // ME: 320x200 pixels is the vector limit for resolution
+		// this goes from order of visuals first to information second (which is why theres two sections)
 		"xv 32 yv 8 picn help "			// background
 		"xv 202 yv 12 string2 \"%s\" "		// skill
 		"xv 0 yv 24 cstring2 \"%s\" "		// level name
@@ -329,7 +330,7 @@ void HelpComputer (edict_t *ent)
 		level.killed_monsters, level.total_monsters, 
 		level.found_goals, level.total_goals,
 		level.found_secrets, level.total_secrets);
-
+	//gi.writing stuff is for sending information to the game because it cant get it just from these variables alone
 	gi.WriteByte (svc_layout);
 	gi.WriteString (string);
 	gi.unicast (ent, true);
@@ -364,6 +365,7 @@ void Cmd_Help_f (edict_t *ent)
 	ent->client->showhelp = true;
 	ent->client->pers.helpchanged = 0;
 	HelpComputer (ent);
+	//gi.unicast(ent, true);
 }
 
 
@@ -379,6 +381,62 @@ void G_SetStats (edict_t *ent)
 	gitem_t		*item;
 	int			index, cells;
 	int			power_armor_type;
+	
+	char		string[1024];
+	char*		stamina;
+	char*		dash;
+
+	if (ent->stamina >= 10) {
+		stamina = "MAX";
+	}
+	else if (ent->stamina >= 7) {
+		stamina = "HIGH";
+	}
+	else if (ent->stamina >= 5) {
+		stamina = "LOW";
+	}
+	else if (ent->stamina >= 3) {
+		stamina = "CRITICAL";
+	}
+	else {
+		stamina = "EMPTY";
+	}
+
+	if (!ent->dashed) {
+		dash = "READY";
+	}
+	else {
+		dash = "GO";
+	}
+
+	//
+	// stamina
+	//
+	// v = middle probably
+	// l = left
+	// r = right
+	// b = bottom
+
+	if (ent->stamina >= 0) { ;
+		// send the layout
+		Com_sprintf(string, sizeof(string), // ME: 320x200 pixels is the vector limit for resolution
+			// this goes from order of visuals first to information second (which is why theres two sections)
+			"xl 20 yb -140 string2 \"Stamina: %s\" " // stamina
+			"xr -135 yb -140 string2 \"Speed: %f\" " // speed
+			"xl 20 yb -160 string2 \"Dash: %s\" ", // dash condition
+			stamina,
+			fabs(ent->velocity[0] + ent->velocity[1] + ent->velocity[2]),
+			dash); // cursed speed measurement but whatever
+		//gi.writing stuff is for sending information to the game because it cant get it just from these variables alone
+		gi.WriteByte(svc_layout);
+		gi.WriteString(string);
+		gi.unicast(ent, true);	
+		ent->client->showhelp = true;
+	}
+
+	//
+	//  add dash indicator like celeste hair change?
+	//
 
 	//
 	// health
