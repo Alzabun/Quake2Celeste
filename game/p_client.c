@@ -1160,6 +1160,7 @@ void PutClientInServer (edict_t *ent)
 	FetchClientEntData (ent);
 
 	// clear entity values
+	ent->stamina = 10; // ME: default value
 	ent->groundentity = NULL;
 	ent->client = &game.clients[index];
 	ent->takedamage = DAMAGE_AIM;
@@ -1589,32 +1590,6 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 	pm_passent = ent;
 
-	/*if (ent->stamina < 10 && ent->stamina >= 0) {
-		if (ent->starttime <= 0) {
-			ent->starttime = level.time;
-		}
-		ent->test = (ent->starttime - level.time) / 1000;
-		if (ent->test >= 1) {
-			if (ent->floating) {
-				ent->stamina -= 1;
-			}
-			else {
-				ent->stamina += 1;
-			}
-			ent->starttime = level.time;
-		}
-	}*/
-
-	if (ent->stamina < 0) {
-		ent->stamina = 0;
-	}
-
-	if (ent->stamina < 10 && ent->stamina >= 0) {
-		if (ent->floating) {
-			ent->stamina = 1;
-		}
-	}
-
 	if (ent->client->chase_target) {
 
 		client->resp.cmd_angles[0] = SHORT2ANGLE(ucmd->angles[0]);
@@ -1640,19 +1615,27 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		else
 			client->ps.pmove.pm_type = PM_NORMAL;
 
-		if (ent->groundentity) {
-			ent->floating = false;
+		if (ent->stamina > 10) {
+			ent->stamina = 10;
 		}
 
 		if (ent->floating && ent->stamina > 0) { // ME: for float
 			client->ps.pmove.gravity = 0;
-			//ent->stamina -= (int)((ent->starttime - level.time))/1000; // i dont think this is calculating correctly
+			if (level.time - ent->starttime >= 0.5) {
+				ent->stamina -= 1;
+				ent->starttime = level.time;
+			}
 		}
 		else {
 			if (ent->floating) {
 				ent->floating = false;
 			}
 			client->ps.pmove.gravity = sv_gravity->value;
+		}
+
+		if (ent->smash) {
+			ent->velocity[2] -= 50;
+			ent->smashspeed = abs(ent->velocity[2]);
 		}
 		
 		pm.s = client->ps.pmove;
@@ -1696,7 +1679,6 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 		if (ent->groundentity && !pm.groundentity && (pm.cmd.upmove >= 10) && (pm.waterlevel == 0))
 		{
-			//ent->stamina = 10;
 			gi.sound(ent, CHAN_VOICE, gi.soundindex("*jump1.wav"), 1, ATTN_NORM, 0);
 			PlayerNoise(ent, ent->s.origin, PNOISE_SELF);
 		}
@@ -1708,8 +1690,26 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		ent->groundentity = pm.groundentity;
 		if (pm.groundentity){
 			ent->groundentity_linkcount = pm.groundentity->linkcount;
+			ent->floating = false;
 			ent->stamina = 10;
 			ent->dashed = false;
+			if (ent->smash) {
+				vec3_t	dir;
+				int speed = ent->smashspeed;
+
+				AngleVectors(ent->client->v_angle, dir, NULL, NULL);
+				
+				if (speed > 500) { // spam prevention
+					fire_rocket(ent, ent->s.origin, dir, speed * 0.1, 1000, speed * 0.15, speed * 0.15);
+				}
+
+				ent->smash = false;
+				ent->smashspeed = 0;
+				
+				if (ent->health < 90 && speed > 500) {
+					ent->health += 5; // some compensation for potential fall damage
+				}
+			}
 		}
 
 		if (ent->deadflag)
@@ -1840,6 +1840,7 @@ void ClientBeginServerFrame (edict_t *ent)
 				(deathmatch->value && ((int)dmflags->value & DF_FORCE_RESPAWN) ) )
 			{
 				respawn(ent);
+				client->latched_buttons = 0;
 				client->latched_buttons = 0;
 			}
 		}

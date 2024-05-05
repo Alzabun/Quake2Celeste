@@ -383,8 +383,17 @@ void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir,
 	int			psave;
 	int			te_sparks;
 
+
 	if (!targ->takedamage)
 		return;
+	
+	if (targ->client && attacker->client && targ->nodmg) { // should prevent self damage while in smash
+		damage = 0;
+		take = 0;
+		save = 0;
+		return;
+	}
+	
 
 	// friendly fire avoidance
 	// if enabled you can't hurt teammates (but you can hurt yourself)

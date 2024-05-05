@@ -949,7 +949,7 @@ void Cmd_Climb_f(edict_t* ent) {
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs, end, ent, MASK_SOLID);
 	VectorSubtract(ent->s.origin, trace.endpos, distance); // im not sure if its this or the trace part but the collision detection is really inconsistent
 	// or maybe the vectorlength < 100 is too short? too big?
-	if (VectorLength(distance) < 100) { // oh my god it works (for the most part, but thats good enough)
+	if (VectorLength(distance) < 50) { // oh my god it works (for the most part, but thats good enough)
 		AngleVectors(ent->client->v_angle, forward, right, NULL);
 		ent->velocity[2] = 0; // test to reset gravity
 		ent->velocity[2] += 300;
@@ -968,7 +968,7 @@ void Cmd_Climb_f(edict_t* ent) {
 
 }
 
-void Cmd_Dream_f(edict_t* ent) {
+void Cmd_Dream_f(edict_t* ent) { // NOT WORKING, MIGHT AS WELL JUST MAKE THE 5TH MOVEMENT A GENERIC DOUBLE JUMP
 	char* msg;
 
 	if (ent->dream) {
@@ -987,8 +987,8 @@ void Cmd_Dream_f(edict_t* ent) {
 }
 
 void Cmd_Float_f(edict_t* ent) { // float like silver from sonic 06 (not really a celeste thing but well im kind of limited here)
-	
-	if (!ent || ent->groundentity) {
+	// id rather have this decrease your stamina over time but i dont know how to do that because level.time is being weird
+	if (!ent || ent->groundentity || ent->smash) {
 		return;
 	}
 
@@ -997,19 +997,74 @@ void Cmd_Float_f(edict_t* ent) { // float like silver from sonic 06 (not really 
 	}
 	else {
 		ent->stamina--;
-		//ent->starttime = level.time + 0.1; // prevent same time
+		ent->starttime = level.time;
 		ent->velocity[2] = 0;
 		ent->floating = true;
 	}
 }
-
+	
 void Cmd_Time_f(edict_t* ent) {
 	if (!ent) {
 		return;
 	}
 
 	gi.cprintf(ent, PRINT_CHAT, "time: %i\n", (int)ent->test);
-	gi.cprintf(ent, PRINT_CHAT, "level time: %i\n", (int)level.time);
+	gi.cprintf(ent, PRINT_CHAT, "level time: %f\n", (float)level.time);
+	gi.cprintf(ent, PRINT_CHAT, "start time: %f\n", (float)ent->starttime);
+}
+
+void Cmd_Smash_f(edict_t* ent) {
+	if (!ent || ent->groundentity || ent->smash) {
+		return;
+	}
+
+	ent->stamina = 0;
+
+	for (int i = 0; i < 3; i++) {
+		ent->velocity[i] = 0;
+	}
+
+	ent->smash = true; // functionality located in ClientThink
+	ent->nodmg = true; // for g_combat.c to prevent dmg from the rocket impact smash (on forever because it doesnt interrupt any gameplay besides smash)
+}
+
+void Cmd_ModHelp_f(edict_t* ent) {
+	if (!ent) {
+		return;
+	}
+
+	gi.centerprintf(ent, "******************\n\nLOOK AT TOP LEFT OF THE SCREEN OR THE CONSOLE TO READ\n\n******************");
+	gi.cprintf(ent, PRINT_HIGH, "Welcome to Quake 2 Celeste!\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "As you may have noticed, you have new UI elements:\n");
+	gi.cprintf(ent, PRINT_HIGH, "The Stamina and Dash indicators are both located on the bottom left of your screen.\n");
+	gi.cprintf(ent, PRINT_HIGH, "A speedometer can be found on the bottom right of your screen.\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "Stamina decreases for each movement ability you use, and is restored upon touching the ground again. Also, you have a limit of 10 stamina.\n");
+	gi.cprintf(ent, PRINT_HIGH, "Speaking of which, here's a list of all your new abilities:\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "E - Dash (Can only be used in the air) [CONSUMES 5 STAMINA]\n");
+	gi.cprintf(ent, PRINT_HIGH, "Fly towards the direction your facing\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "CTRL + C - Slide (Can only be while crouching) [CONSUMES 0 STAMINA]\n");
+	gi.cprintf(ent, PRINT_HIGH, "Slide in the direction your facing\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "F - Float (Can only be used in the air) [CONSUMES 1 STAMINA EVERY SECOND]\n");
+	gi.cprintf(ent, PRINT_HIGH, "Hover in the air for a short period of time\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "V - Climb (Can only be used next to a wall) [CONSUMES 1 STAMINA EACH CLIMB]\n");
+	gi.cprintf(ent, PRINT_HIGH, "Climb up any wall as long as you're near it\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "Z - Smash (Can only be used high enough in the air) [CONSUMES ALL STAMINA]\n");
+	gi.cprintf(ent, PRINT_HIGH, "Accelerate into the ground at high speeds, causing a massive explosion upon touching the ground\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "******PUT 'modhelp2' INTO THE CONSOLE FOR A CONTINUATION OF THE TUTORIAL BECAUSE THE COMMAND PRINT LIMIT HAS BEEN REACHED******\n\n");
+	//Cmd_ModHelp2_f(ent);
+}
+
+void Cmd_ModHelp2_f(edict_t* ent) {
+	if (!ent) {
+		return;
+	}
+
+	gi.cprintf(ent, PRINT_HIGH, "Additionally, all of the weapons have been modified to adapt to these new gameplay changes.\n");
+	gi.cprintf(ent, PRINT_HIGH, "In general, weapons now either fire faster or fire more bullets than usual and correspond to some of Celeste's objects (well not really but I tried).\n\n");
+	/* if i actually figure out how to do this (i hope i do)*/
+	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level!\n");
+	gi.cprintf(ent, PRINT_HIGH, "To view your high scores, use this command: [PLACEHOLDER ADD THIS LATER]\n");
+	gi.cprintf(ent, PRINT_HIGH, "These records are saved to the save file as long as you're using this mod, so they won't be erased.\n");
 }
 
 /*
@@ -1111,6 +1166,12 @@ void ClientCommand(edict_t* ent)
 		Cmd_Float_f(ent);
 	else if (Q_stricmp(cmd, "time") == 0)
 		Cmd_Time_f(ent);
+	else if (Q_stricmp(cmd, "smash") == 0)
+		Cmd_Smash_f(ent);
+	else if (Q_stricmp(cmd, "modhelp") == 0)
+		Cmd_ModHelp_f(ent);
+	else if (Q_stricmp(cmd, "modhelp2") == 0)
+		Cmd_ModHelp2_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

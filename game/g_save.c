@@ -466,7 +466,7 @@ void WriteGame (char *filename, qboolean autosave)
 	if (!autosave)
 		SaveClientData ();
 
-	f = fopen (filename, "wb");
+	f =	fopen (filename, "wb");
 	if (!f)
 		gi.error ("Couldn't open %s", filename);
 

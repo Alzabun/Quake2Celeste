@@ -829,7 +829,19 @@ void Blaster_Fire (edict_t *ent, vec3_t g_offset, int damage, qboolean hyper, in
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_blaster (ent, start, forward, damage, 1000, effect, hyper);
+	fire_blaster (ent, start, forward, damage * 0.5, 3000, effect, hyper); // idk what the original damage is  but im just making it weaker by 1/3
+
+	for (int i = 0; i < 3; i++) {
+		start[i] += right[i] * 20;
+	}
+
+	fire_blaster(ent, start, forward, damage * 0.5, 3000, effect, hyper);
+
+	for (int i = 0; i < 3; i++) {
+		start[i] -= right[i] * 40;
+	}
+
+	fire_blaster(ent, start, forward, damage * 0.5, 3000, effect, hyper);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -858,10 +870,14 @@ void Weapon_Blaster_Fire (edict_t *ent)
 
 void Weapon_Blaster (edict_t *ent)
 {
-	static int	pause_frames[]	= {19, 32, 0};
-	static int	fire_frames[]	= {5, 0};
+	static int	pause_frames[]	= {19, 32, 0}; // 19, 32, 0
+	//static int	fire_frames[]	= {5, 0}; // 5, 0
 
-	Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
+	//static int	pause_frames[] = { 22, 28, 34, 0 };
+	static int	fire_frames[] = { 8, 9, 0 };
+
+	Weapon_Generic (ent, 7, 18, 36, 39, pause_frames, fire_frames, Weapon_Blaster_Fire);
+	//Weapon_Generic (ent, 4, 8, 52, 55, pause_frames, fire_frames, Weapon_Blaster_Fire);
 }
 
 

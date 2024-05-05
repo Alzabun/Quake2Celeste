@@ -1109,13 +1109,27 @@ struct edict_s
 	// common data blocks
 	moveinfo_t		moveinfo;
 	monsterinfo_t	monsterinfo;
+
 	//ME: movement managemenet
 	int stamina;
+
+	// (i give up on adding this)
 	qboolean dream;
+
+	//DASH
 	qboolean dashed;
+
+	//FLOAT
 	qboolean floating;
-	int starttime;
+	float starttime;
+
+	//test for tracking level time and starttime
 	int test;
+
+	//SMASH
+	qboolean smash;
+	qboolean nodmg;
+	int smashspeed;
 
 };
 
