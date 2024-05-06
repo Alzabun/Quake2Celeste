@@ -1011,6 +1011,8 @@ void Cmd_Time_f(edict_t* ent) {
 	gi.cprintf(ent, PRINT_CHAT, "time: %i\n", (int)ent->test);
 	gi.cprintf(ent, PRINT_CHAT, "level time: %f\n", (float)level.time);
 	gi.cprintf(ent, PRINT_CHAT, "start time: %f\n", (float)ent->starttime);
+	gi.cprintf(ent, PRINT_CHAT, "timer: %f\n", (float)ent->timer);
+
 }
 
 void Cmd_Smash_f(edict_t* ent) {
@@ -1072,6 +1074,31 @@ void Cmd_ModHelp2_f(edict_t* ent) {
 	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level!\n");
 	gi.cprintf(ent, PRINT_HIGH, "To view your high scores, use this command: [PLACEHOLDER ADD THIS LATER]\n");
 	gi.cprintf(ent, PRINT_HIGH, "These records are saved to the save file as long as you're using this mod, so they won't be erased.\n");
+}
+
+void Cmd_Highscore_f(edict_t* ent) {
+	FILE* inFile = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\mods\\records.txt", "r");
+	char mapname[32];
+	float highscore;
+
+	if (!ent) {
+		return;
+	}
+
+	if (inFile == NULL) {
+		gi.cprintf(ent, PRINT_HIGH, "Records file not found\n");
+		return;
+	}
+
+	while (fscanf(inFile, "%s %f", mapname, &highscore) == 2) {
+		gi.cprintf(ent, PRINT_HIGH, "Map: %s, Time Recorded: %.2f\n", mapname, highscore);
+	}
+	//fscanf(inFile, "%f", &highscore);
+	fclose(inFile);
+	
+	//gi.cprintf(ent, PRINT_HIGH, "Level Complete Time: %f\n", highscore);
+	//gi.centerprintf(ent, "Level Complete Time: %f", highscore);
+
 }
 
 /*
@@ -1179,6 +1206,8 @@ void ClientCommand(edict_t* ent)
 		Cmd_ModHelp_f(ent);
 	else if (Q_stricmp(cmd, "modhelp2") == 0)
 		Cmd_ModHelp2_f(ent);
+	else if (Q_stricmp(cmd, "highscore") == 0)
+		Cmd_Highscore_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);
 }

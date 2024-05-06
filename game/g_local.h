@@ -181,7 +181,6 @@ typedef enum
 #define PNOISE_WEAPON			1
 #define PNOISE_IMPACT			2
 
-
 // edict->movetype values
 typedef enum
 {
@@ -1130,6 +1129,10 @@ struct edict_s
 	qboolean smash;
 	qboolean nodmg;
 	int smashspeed;
+	
+	//FILE OPS TIMER
+	float timer;
+	qboolean pending;
 
 };
 

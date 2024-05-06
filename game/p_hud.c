@@ -422,10 +422,12 @@ void G_SetStats (edict_t *ent)
 		Com_sprintf(string, sizeof(string), // ME: 320x200 pixels is the vector limit for resolution
 			// this goes from order of visuals first to information second (which is why theres two sections)
 			"xl 20 yb -140 string2 \"Stamina: %s\" " // stamina
-			"xr -135 yb -140 string2 \"Speed: %f\" " // speed
+			"xr -135 yb -140 string2 \"Speed: %.1f\" " // speed
+			"xr -135 yb -160 string2 \"Time: %.2f\" " // speed
 			"xl 20 yb -160 string2 \"Dash: %s\" ", // dash condition
 			stamina,
 			fabs(ent->velocity[0] + ent->velocity[1] + ent->velocity[2]),
+			level.time,
 			dash); // cursed speed measurement but whatever
 		//gi.writing stuff is for sending information to the game because it cant get it just from these variables alone
 		gi.WriteByte(svc_layout);

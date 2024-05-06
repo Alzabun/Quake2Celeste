@@ -884,6 +884,7 @@ void	SelectSpawnPoint (edict_t *ent, vec3_t origin, vec3_t angles)
 	// find a single player start spot
 	if (!spot)
 	{
+		ent->pending = false; // ME: idk where else to put this
 		while ((spot = G_Find (spot, FOFS(classname), "info_player_start")) != NULL)
 		{
 			if (!game.spawnpoint[0] && !spot->targetname)
@@ -1162,6 +1163,7 @@ void PutClientInServer (edict_t *ent)
 	// clear entity values
 	ent->stamina = 10; // ME: default value
 	ent->nodmg = true; // ME: self damage prevention for rocket launcher and smash
+	ent->timer = 0; // Default
 	ent->groundentity = NULL;
 	ent->client = &game.clients[index];
 	ent->takedamage = DAMAGE_AIM;
@@ -1581,13 +1583,26 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 
 	if (level.intermissiontime)
 	{
-		client->ps.pmove.pm_type = PM_FREEZE;
+		FILE* inFile = fopen("C:\\Program Files (x86)\\Steam\\steamapps\\common\\Quake 2\\mods\\records.txt", "a");
+		char* mapname = level.mapname;
+		float highscore = ent->timer;
+
+		if (!ent->pending) {
+			fprintf(inFile, "%s %.2f\n", mapname, highscore);
+			fclose(inFile);
+			ent->pending = true;
+		}
+
+		client->ps.pmove.pm_type = PM_FREEZE;	
 		// can exit intermission after five seconds
 		if (level.time > level.intermissiontime + 5.0 
 			&& (ucmd->buttons & BUTTON_ANY) )
 			level.exitintermission = true;
 		return;
 	}
+
+	ent->pending = false;
+	ent->timer = level.time;
 
 	pm_passent = ent;
 
