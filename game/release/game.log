@@ -1,23 +1,5 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
-  g_cmds.c
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(33,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(56,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(57,2): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(721,4): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(724,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(807,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(808,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(809,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(820,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(827,2): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(874,7): warning C4459: declaration of 'st' hides global declaration
-  C:\Users\Sampl\Quake2Celeste\game\g_local.h(456,21):
-  see declaration of 'st'
-  
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(896,3): warning C4996: 'strcat': This function or variable may be unsafe. Consider using strcat_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(884,3): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(892,4): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(940,9): warning C4101: 'start': unreferenced local variable
-C:\Users\Sampl\Quake2Celeste\game\g_cmds.c(942,9): warning C4189: 'small': local variable is initialized but not referenced
+  p_weapon.c
+C:\Users\Sampl\Quake2Celeste\game\p_weapon.c(1379,2): warning C4013: 'fire_snowball' undefined; assuming extern returning int
      Creating library .\..\release\gamex86.lib and object .\..\release\gamex86.exp
   game.vcxproj -> C:\Program Files (x86)\Steam\steamapps\common\Quake 2\mods\gamex86.dll

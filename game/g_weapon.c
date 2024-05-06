@@ -818,7 +818,7 @@ void bfg_think (edict_t *self)
 		dmg = 10;
 
 	ent = NULL;
-	while ((ent = findradius(ent, self->s.origin, 256)) != NULL)
+	while ((ent = findradius(ent, self->s.origin, 512)) != NULL) // 256 (was 256 chosen because of bits or a coincendence? ill just go off bits just in case)
 	{
 		if (ent == self)
 			continue;
@@ -831,7 +831,7 @@ void bfg_think (edict_t *self)
 
 		if (!(ent->svflags & SVF_MONSTER) && (!ent->client) && (strcmp(ent->classname, "misc_explobox") != 0))
 			continue;
-
+				
 		VectorMA (ent->absmin, 0.5, ent->size, point);
 
 		VectorSubtract (point, self->s.origin, dir);
@@ -848,8 +848,15 @@ void bfg_think (edict_t *self)
 				break;
 
 			// hurt it if we can
-			if ((tr.ent->takedamage) && !(tr.ent->flags & FL_IMMUNE_LASER) && (tr.ent != self->owner))
-				T_Damage (tr.ent, self, self->owner, dir, tr.endpos, vec3_origin, dmg, 1, DAMAGE_ENERGY, MOD_BFG_LASER);
+			if ((tr.ent->takedamage) && !(tr.ent->flags & FL_IMMUNE_LASER) && (tr.ent != self->owner)) { // if enemy detected, teleport to the enemy instantly
+				
+				self->s.origin[0] = ent->s.origin[0];
+				self->s.origin[1] = ent->s.origin[1];
+				self->s.origin[2] = ent->s.origin[2];
+
+				//Add_Ammo(self->owner, AMMO_CELLS, 50); forget it
+				T_Damage(tr.ent, self, self->owner, dir, tr.endpos, vec3_origin, dmg, 1, DAMAGE_ENERGY, MOD_BFG_LASER);
+			}
 
 			// if we hit something that's not a monster or player we're done
 			if (!(tr.ent->svflags & SVF_MONSTER) && (!tr.ent->client))
@@ -887,7 +894,7 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 	VectorCopy (start, bfg->s.origin);
 	VectorCopy (dir, bfg->movedir);
 	vectoangles (dir, bfg->s.angles);
-	VectorScale (dir, speed, bfg->velocity);
+	VectorScale (dir, 0, bfg->velocity); // speed
 	bfg->movetype = MOVETYPE_FLYMISSILE;
 	bfg->clipmask = MASK_SHOT;
 	bfg->solid = SOLID_BBOX;
@@ -913,4 +920,44 @@ void fire_bfg (edict_t *self, vec3_t start, vec3_t dir, int damage, int speed, f
 		check_dodge (self, bfg->s.origin, dir, speed);
 
 	gi.linkentity (bfg);
+}
+
+//
+// snowball (railgun replacement)
+//
+
+void fire_snowball(edict_t* self, vec3_t start, vec3_t dir, int damage, int speed, float damage_radius)
+{
+	edict_t* bfg;
+
+	bfg = G_Spawn();
+	VectorCopy(start, bfg->s.origin);
+	VectorCopy(dir, bfg->movedir);
+	vectoangles(dir, bfg->s.angles);
+	VectorScale(dir, 2000, bfg->velocity); // speed
+	bfg->movetype = MOVETYPE_FLYMISSILE;
+	bfg->clipmask = MASK_SHOT;
+	bfg->solid = SOLID_BBOX;
+	bfg->s.effects |= EF_BFG | EF_ANIM_ALLFAST;
+	VectorClear(bfg->mins);
+	VectorClear(bfg->maxs);
+	bfg->s.modelindex = gi.modelindex("sprites/s_bfg1.sp2");
+	bfg->owner = self;
+	bfg->touch = bfg_touch;
+	bfg->nextthink = level.time + 8000 / speed;
+	bfg->think = G_FreeEdict;
+	bfg->radius_dmg = damage;
+	bfg->dmg_radius = damage_radius;
+	bfg->classname = "bfg blast";
+	bfg->s.sound = gi.soundindex("weapons/bfg__l1a.wav");
+
+	//bfg->think = bfg_think;
+	//bfg->nextthink = level.time + FRAMETIME;
+	//bfg->teammaster = bfg;
+	//bfg->teamchain = NULL;
+
+	//if (self->client)
+		//check_dodge(self, bfg->s.origin, dir, speed);
+
+	gi.linkentity(bfg);
 }

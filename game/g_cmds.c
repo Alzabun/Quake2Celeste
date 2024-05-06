@@ -949,7 +949,7 @@ void Cmd_Climb_f(edict_t* ent) {
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs, end, ent, MASK_SOLID);
 	VectorSubtract(ent->s.origin, trace.endpos, distance); // im not sure if its this or the trace part but the collision detection is really inconsistent
 	// or maybe the vectorlength < 100 is too short? too big?
-	if (VectorLength(distance) < 50) { // oh my god it works (for the most part, but thats good enough)
+	if (VectorLength(distance) < 125) { // oh my god it works (for the most part, but thats good enough)
 		AngleVectors(ent->client->v_angle, forward, right, NULL);
 		ent->velocity[2] = 0; // test to reset gravity
 		ent->velocity[2] += 300;
@@ -1025,7 +1025,7 @@ void Cmd_Smash_f(edict_t* ent) {
 	}
 
 	ent->smash = true; // functionality located in ClientThink
-	ent->nodmg = true; // for g_combat.c to prevent dmg from the rocket impact smash (on forever because it doesnt interrupt any gameplay besides smash)
+	ent->nodmg = true; // just in case
 }
 
 void Cmd_ModHelp_f(edict_t* ent) {
@@ -1061,6 +1061,13 @@ void Cmd_ModHelp2_f(edict_t* ent) {
 
 	gi.cprintf(ent, PRINT_HIGH, "Additionally, all of the weapons have been modified to adapt to these new gameplay changes.\n");
 	gi.cprintf(ent, PRINT_HIGH, "In general, weapons now either fire faster or fire more bullets than usual and correspond to some of Celeste's objects (well not really but I tried).\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "However, some weapons have completely different functionality. Read below for these changes:\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "Strawberry Launcher (formerly Blaster): Shoots bullets in 3 directions with the same fire rate as a shotgun.\n");
+	gi.cprintf(ent, PRINT_HIGH, "Snowball Launcher (formerly Railgun): Shoots a fast BFG10K-type bullet but without the homing effect that the BFG normally would have.\n");
+	gi.cprintf(ent, PRINT_HIGH, "Seeker (formerly BFG10K): Places a static BFG ball. If any enemy goes near it, it will instantly ram into all the enemies nearby then disappear shortly after.\n");
+	gi.cprintf(ent, PRINT_HIGH, "Rocket Jumper (formerly Rocket Launcher): Does no damage, but you can now rocket jump with no consequences.\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "Crystal Shotgun (formerly Grenade Launcher): Shoots 4 small damaging grenades along with a railgun blast.\n\n");
+
 	/* if i actually figure out how to do this (i hope i do)*/
 	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level!\n");
 	gi.cprintf(ent, PRINT_HIGH, "To view your high scores, use this command: [PLACEHOLDER ADD THIS LATER]\n");

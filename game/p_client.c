@@ -420,7 +420,7 @@ void TossClientWeapon (edict_t *self)
 	item = self->client->pers.weapon;
 	if (! self->client->pers.inventory[self->client->ammo_index] )
 		item = NULL;
-	if (item && (strcmp (item->pickup_name, "Blaster") == 0))
+	if (item && (strcmp (item->pickup_name, "Strawberry Launcher") == 0)) // "Blaster"
 		item = NULL;
 
 	if (!((int)(dmflags->value) & DF_QUAD_DROP))
@@ -610,7 +610,7 @@ void InitClientPersistant (gclient_t *client)
 
 	memset (&client->pers, 0, sizeof(client->pers));
 
-	item = FindItem("Blaster");
+	item = FindItem("Strawberry Launcher"); // Blaster
 	client->pers.selected_item = ITEM_INDEX(item);
 	client->pers.inventory[client->pers.selected_item] = 1;
 
@@ -1161,6 +1161,7 @@ void PutClientInServer (edict_t *ent)
 
 	// clear entity values
 	ent->stamina = 10; // ME: default value
+	ent->nodmg = true; // ME: self damage prevention for rocket launcher and smash
 	ent->groundentity = NULL;
 	ent->client = &game.clients[index];
 	ent->takedamage = DAMAGE_AIM;
@@ -1694,21 +1695,17 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 			ent->stamina = 10;
 			ent->dashed = false;
 			if (ent->smash) {
-				vec3_t	dir;
+				vec3_t dir = { 0, 0, -1 }; // downwards only
 				int speed = ent->smashspeed;
-
-				AngleVectors(ent->client->v_angle, dir, NULL, NULL);
 				
 				if (speed > 500) { // spam prevention
 					fire_rocket(ent, ent->s.origin, dir, speed * 0.1, 1000, speed * 0.15, speed * 0.15);
 				}
-
-				ent->smash = false;
-				ent->smashspeed = 0;
 				
-				if (ent->health < 90 && speed > 500) {
-					ent->health += 5; // some compensation for potential fall damage
+				if (ent->health < 95 && speed > 500) {
+					ent->health += 5; // some compensation for potential fall damage or damage from some other source
 				}
+				ent->smashspeed = 0;
 			}
 		}
 

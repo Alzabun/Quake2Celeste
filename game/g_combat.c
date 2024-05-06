@@ -374,23 +374,26 @@ qboolean CheckTeamDamage (edict_t *targ, edict_t *attacker)
 	return false;
 }
 
-void T_Damage (edict_t *targ, edict_t *inflictor, edict_t *attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
+void T_Damage(edict_t* targ, edict_t* inflictor, edict_t* attacker, vec3_t dir, vec3_t point, vec3_t normal, int damage, int knockback, int dflags, int mod)
 {
-	gclient_t	*client;
+	gclient_t* client;
 	int			take;
 	int			save;
 	int			asave;
 	int			psave;
 	int			te_sparks;
 
-
-	if (!targ->takedamage)
-		return;
-	
 	if (targ->client && attacker->client && targ->nodmg) { // should prevent self damage while in smash
 		damage = 0;
 		take = 0;
 		save = 0;
+		if (targ->smash) {
+			targ->smash = false;
+			return; // prevent rocket jump when smash
+		}
+	}
+
+	if (!targ->takedamage){
 		return;
 	}
 	

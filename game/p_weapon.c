@@ -269,7 +269,7 @@ void NoAmmoWeaponChange (edict_t *ent)
 		ent->client->newweapon = FindItem ("shotgun");
 		return;
 	}
-	ent->client->newweapon = FindItem ("blaster");
+	ent->client->newweapon = FindItem ("Strawberry Launcher"); // blasters
 }
 
 /*
@@ -725,7 +725,31 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 	VectorScale (forward, -2, ent->client->kick_origin);
 	ent->client->kick_angles[0] = -1;
 
-	fire_grenade (ent, start, forward, damage, 600, 2.5, radius);
+	fire_rail(ent, start, forward, damage, 100);
+
+	for (int i = 0; i < 3; i++) {
+		start[i] += right[i] * 20;
+	}
+
+	fire_grenade (ent, start, forward, damage * 0.5, 600, 2.5, radius* 0.5);
+
+	for (int i = 0; i < 3; i++) {
+		start[i] -= right[i] * 40;
+	}
+
+	fire_grenade(ent, start, forward, damage * 0.5, 600, 2.5, radius* 0.5);
+
+	for (int i = 0; i < 3; i++) {
+		start[i] += right[i] * 60;
+	}
+
+	fire_grenade(ent, start, forward, damage * 0.5, 600, 2.5, radius * 0.5);
+
+	for (int i = 0; i < 3; i++) {
+		start[i] -= right[i] * 120;
+	}
+
+	fire_grenade(ent, start, forward, damage * 0.5, 600, 2.5, radius * 0.5);
 
 	gi.WriteByte (svc_muzzleflash);
 	gi.WriteShort (ent-g_edicts);
@@ -742,7 +766,8 @@ void weapon_grenadelauncher_fire (edict_t *ent)
 
 void Weapon_GrenadeLauncher (edict_t *ent)
 {
-	static int	pause_frames[]	= {34, 51, 59, 0};
+	//static int	pause_frames[]	= {34, 51, 59, 0};
+	static int	pause_frames[] = { 34, 51, 59, 0 };
 	static int	fire_frames[]	= {6, 0};
 
 	Weapon_Generic (ent, 5, 16, 59, 64, pause_frames, fire_frames, weapon_grenadelauncher_fire);
@@ -780,7 +805,10 @@ void Weapon_RocketLauncher_Fire (edict_t *ent)
 
 	VectorSet(offset, 8, 8, ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_rocket (ent, start, forward, damage, 650, damage_radius, radius_damage);
+
+	fire_rocket (ent, start, forward, 0, 1000, damage_radius, radius_damage); 
+	fire_rocket(ent, start, forward, 0, 1000, damage_radius, radius_damage);  // meant for rocket jumping
+	fire_rocket(ent, start, forward, 0, 1000, damage_radius, radius_damage);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1228,7 +1256,7 @@ void weapon_shotgun_fire (edict_t *ent)
 	if (deathmatch->value)
 		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_DEATHMATCH_SHOTGUN_COUNT, MOD_SHOTGUN);
 	else
-		fire_shotgun (ent, start, forward, damage, kick, 500, 500, DEFAULT_SHOTGUN_COUNT, MOD_SHOTGUN);
+		fire_shotgun (ent, start, forward, damage, kick, 2000, 500, 48, MOD_SHOTGUN);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);
@@ -1347,7 +1375,8 @@ void weapon_railgun_fire (edict_t *ent)
 
 	VectorSet(offset, 0, 7,  ent->viewheight-8);
 	P_ProjectSource (ent->client, ent->s.origin, offset, forward, right, start);
-	fire_rail (ent, start, forward, damage, kick);
+	//fire_rail (ent, start, forward, damage, kick);
+	fire_snowball(ent, start, forward, damage, 100, 10);
 
 	// send muzzle flash
 	gi.WriteByte (svc_muzzleflash);

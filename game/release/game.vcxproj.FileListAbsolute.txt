@@ -1,2 +1,1 @@
 C:\Users\Sampl\quake2-full\game\release\gamex86.dll
-C:\Users\Sampl\Quake2Celeste\game\release\gamex86.dll

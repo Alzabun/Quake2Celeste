@@ -1298,7 +1298,7 @@ always owned, never in the world
 		NULL, 0,
 		"models/weapons/v_blast/tris.md2",
 /* icon */		"w_blaster",
-/* pickup */	"Blaster",
+/* pickup */	"Strawberry Launcher", // Blaster
 		0,
 		0,
 		NULL,
@@ -1436,7 +1436,7 @@ always owned, never in the world
 		"models/weapons/g_launch/tris.md2", EF_ROTATE,
 		"models/weapons/v_launch/tris.md2",
 /* icon */		"w_glauncher",
-/* pickup */	"Grenade Launcher",
+/* pickup */	"Crystal Shotgun", // Grenade Launcher
 		0,
 		1,
 		"Grenades",
@@ -1459,7 +1459,7 @@ always owned, never in the world
 		"models/weapons/g_rocket/tris.md2", EF_ROTATE,
 		"models/weapons/v_rocket/tris.md2",
 /* icon */		"w_rlauncher",
-/* pickup */	"Rocket Launcher",
+/* pickup */	"Rocket Jumper", // Rocket Launcher
 		0,
 		1,
 		"Rockets",
@@ -1505,7 +1505,7 @@ always owned, never in the world
 		"models/weapons/g_rail/tris.md2", EF_ROTATE,
 		"models/weapons/v_rail/tris.md2",
 /* icon */		"w_railgun",
-/* pickup */	"Railgun",
+/* pickup */	"Snowball Launcher", // Railgun
 		0,
 		1,
 		"Slugs",
@@ -1528,9 +1528,9 @@ always owned, never in the world
 		"models/weapons/g_bfg/tris.md2", EF_ROTATE,
 		"models/weapons/v_bfg/tris.md2",
 /* icon */		"w_bfg",
-/* pickup */	"BFG10K",
+/* pickup */	"Seeker", // BFG10K
 		0,
-		50,
+		50, // (i think this is how much ammo it gives on pick up??) 
 		"Cells",
 		IT_WEAPON|IT_STAY_COOP,
 		WEAP_BFG,
