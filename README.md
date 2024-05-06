@@ -3,7 +3,7 @@
 
 ## Description:
 
-Celeste, a 2D platformer game, has a lot of unique movement features and obstacles that makes it more distinct from other platformers. However, Celeste is obviously not made to work in an FPS environment, but this mod tries to create an experience as if it were meant for that. To comply with the deliverables, the features added to this mod aren't specific to Celeste, involving ideas from myself or inspiration from other movement shooters. 
+Celeste, a 2D platformer game, has a lot of unique movement features and obstacles that makes it more distinct from other platformers. However, Celeste is obviously not made to work in an FPS environment, but this mod tries to create an experience as if it were meant for that. To comply with the deliverables, the features added to this mod aren't ONLY specific to Celeste, involving ideas from myself or inspiration from other movement shooters. 
 
 ## Download Instructions:
 
