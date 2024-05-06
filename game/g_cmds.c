@@ -928,14 +928,12 @@ void Cmd_Slide_f(edict_t *ent){
 	if (ent->client->ps.pmove.pm_flags & PMF_DUCKED) { // you can only slide while crouched already
 		AngleVectors(ent->client->v_angle, forward, right, NULL);
 		for (int i = 0; i < 3; i++) {
-			ent->velocity[i] += forward[i] * 750; // maybe figure out how to lessen friction while sliding if theres time
+			ent->velocity[i] += forward[i] * 750; 
 		}
-	} // maybe dont make touching the ground the only way to gain stamina back cus of things like this where you're always on the ground
+	} 
 }
 
 void Cmd_Climb_f(edict_t* ent) {
-
-	//gi.cprintf(ent, PRINT_CHAT, "tr.fraction value:\n", tr.fraction); // this can also be used to print out ui stuff in general
 
 	vec3_t start, end, right, forward;
 	trace_t trace;
@@ -948,27 +946,15 @@ void Cmd_Climb_f(edict_t* ent) {
 
 	trace = gi.trace(ent->s.origin, ent->mins, ent->maxs, end, ent, MASK_SOLID);
 	VectorSubtract(ent->s.origin, trace.endpos, distance); // im not sure if its this or the trace part but the collision detection is really inconsistent
-	// or maybe the vectorlength < 100 is too short? too big?
-	if (VectorLength(distance) < 125) { // oh my god it works (for the most part, but thats good enough)
+	if (VectorLength(distance) < 130) { 
 		AngleVectors(ent->client->v_angle, forward, right, NULL);
 		ent->velocity[2] = 0; // test to reset gravity
 		ent->velocity[2] += 300;
 		ent->stamina--;
 	}
-	// make sure to add stamina managing after like 10 climbs or something
-
-	/*
-	if (trace.fraction < 1) {
-		AngleVectors(ent->client->v_angle, forward, right, NULL);
-		for (int i = 0; i < 3; i++) {
-			ent->velocity[2] += 100;
-		}
-	}*/
-
-
 }
 
-void Cmd_Dream_f(edict_t* ent) { // NOT WORKING, MIGHT AS WELL JUST MAKE THE 5TH MOVEMENT A GENERIC DOUBLE JUMP
+void Cmd_Dream_f(edict_t* ent) { // NOT WORKING, IGNORE THIS
 	char* msg;
 
 	if (ent->dream) {
@@ -981,13 +967,10 @@ void Cmd_Dream_f(edict_t* ent) { // NOT WORKING, MIGHT AS WELL JUST MAKE THE 5TH
 		ent->movetype = MOVETYPE_NOCLIP;
 		msg = "dream ON\n";
 	}
-	// meant to disable collision checking as long as its on
-	// (make it so that it can only be turend on while in the air/dashing)
 	gi.cprintf(ent, PRINT_HIGH, msg);
 }
 
 void Cmd_Float_f(edict_t* ent) { // float like silver from sonic 06 (not really a celeste thing but well im kind of limited here)
-	// id rather have this decrease your stamina over time but i dont know how to do that because level.time is being weird
 	if (!ent || ent->groundentity || ent->smash) {
 		return;
 	}
@@ -1039,12 +1022,12 @@ void Cmd_ModHelp_f(edict_t* ent) {
 	gi.cprintf(ent, PRINT_HIGH, "Welcome to Quake 2 Celeste!\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "As you may have noticed, you have new UI elements:\n");
 	gi.cprintf(ent, PRINT_HIGH, "The Stamina and Dash indicators are both located on the bottom left of your screen.\n");
-	gi.cprintf(ent, PRINT_HIGH, "A speedometer can be found on the bottom right of your screen.\n\n");
+	gi.cprintf(ent, PRINT_HIGH, "A speedometer can be found on the bottom right of your screen as well as how much time has passed in the level.\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "Stamina decreases for each movement ability you use, and is restored upon touching the ground again. Also, you have a limit of 10 stamina.\n");
 	gi.cprintf(ent, PRINT_HIGH, "Speaking of which, here's a list of all your new abilities:\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "E - Dash (Can only be used in the air) [CONSUMES 5 STAMINA]\n");
 	gi.cprintf(ent, PRINT_HIGH, "Fly towards the direction your facing\n\n");
-	gi.cprintf(ent, PRINT_HIGH, "CTRL + C - Slide (Can only be while crouching) [CONSUMES 0 STAMINA]\n");
+	gi.cprintf(ent, PRINT_HIGH, "C + CTRL - Slide (Can only be while crouching) [CONSUMES 0 STAMINA]\n");
 	gi.cprintf(ent, PRINT_HIGH, "Slide in the direction your facing\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "F - Float (Can only be used in the air) [CONSUMES 1 STAMINA EVERY SECOND]\n");
 	gi.cprintf(ent, PRINT_HIGH, "Hover in the air for a short period of time\n\n");
@@ -1070,10 +1053,9 @@ void Cmd_ModHelp2_f(edict_t* ent) {
 	gi.cprintf(ent, PRINT_HIGH, "Rocket Jumper (formerly Rocket Launcher): Does no damage, but you can now rocket jump with no consequences.\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "Crystal Shotgun (formerly Grenade Launcher): Shoots 4 small damaging grenades along with a railgun blast.\n\n");
 
-	/* if i actually figure out how to do this (i hope i do)*/
 	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level!\n");
-	gi.cprintf(ent, PRINT_HIGH, "To view your high scores, use this command: [PLACEHOLDER ADD THIS LATER]\n");
-	gi.cprintf(ent, PRINT_HIGH, "These records are saved to the save file as long as you're using this mod, so they won't be erased.\n");
+	gi.cprintf(ent, PRINT_HIGH, "To view your times, use this command: 'records'\n");
+	gi.cprintf(ent, PRINT_HIGH, "These records are saved to the file 'records.txt' as long as you're using this mod, so they won't be erased.\n");
 }
 
 void Cmd_Highscore_f(edict_t* ent) {
@@ -1093,11 +1075,8 @@ void Cmd_Highscore_f(edict_t* ent) {
 	while (fscanf(inFile, "%s %f", mapname, &highscore) == 2) {
 		gi.cprintf(ent, PRINT_HIGH, "Map: %s, Time Recorded: %.2f\n", mapname, highscore);
 	}
-	//fscanf(inFile, "%f", &highscore);
-	fclose(inFile);
 	
-	//gi.cprintf(ent, PRINT_HIGH, "Level Complete Time: %f\n", highscore);
-	//gi.centerprintf(ent, "Level Complete Time: %f", highscore);
+	fclose(inFile);
 
 }
 
@@ -1206,7 +1185,7 @@ void ClientCommand(edict_t* ent)
 		Cmd_ModHelp_f(ent);
 	else if (Q_stricmp(cmd, "modhelp2") == 0)
 		Cmd_ModHelp2_f(ent);
-	else if (Q_stricmp(cmd, "highscore") == 0)
+	else if (Q_stricmp(cmd, "records") == 0)
 		Cmd_Highscore_f(ent);
 	else	// anything that doesn't match a command will be a chat
 		Cmd_Say_f (ent, false, true);

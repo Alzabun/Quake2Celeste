@@ -1618,7 +1618,7 @@ void ClientThink (edict_t *ent, usercmd_t *ucmd)
 		memset (&pm, 0, sizeof(pm));
 
 		if (ent->movetype == MOVETYPE_NOCLIP)
-			if (ent->dream) { // ME: im not sure if i can get this to work how i want ever
+			if (ent->dream) { // ME: im not sure if i can get this to work how i want ever (yep no i didnt just ignore this)
 				client->ps.pmove.pm_type = PM_NORMAL;
 			}
 			else {
