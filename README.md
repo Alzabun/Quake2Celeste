@@ -33,27 +33,27 @@ A guide on exactly everything the mod changes can be found ingame. To find this,
 
 ### Movement Abilities
 
-Dash - Press E in the air [CONSUMES 5 STAMINA]: Fly towards the direction your facing (Can only be used in the air) (Celeste's main form of movement)
+__Dash__ - Press E in the air [CONSUMES 5 STAMINA]: Fly towards the direction your facing (Can only be used in the air) (Celeste's main form of movement)
 
-Slide - Hold C then press CTRL [CONSUMES 0 STAMINA]: Slide in the direction your facing (Can only be while crouching) 
+__Slide__ - Hold C then press CTRL [CONSUMES 0 STAMINA]: Slide in the direction your facing (Can only be while crouching) 
 
-Float - Press F in the air [CONSUMES 1 STAMINA EVERY SECOND]: Hover in the air for a short period of time (Can only be used in the air)
+__Float__ - Press F in the air [CONSUMES 1 STAMINA EVERY SECOND]: Hover in the air for a short period of time (Can only be used in the air)
 
-Climb - Press V next to a wall [CONSUMES 1 STAMINA EACH CLIMB]: Climb up a wall (Celeste's other main form of movement)
+__Climb__ - Press V next to a wall [CONSUMES 1 STAMINA EACH CLIMB]: Climb up a wall (Celeste's other main form of movement)
 
-Smash - Press Z in the air [CONSUMES ALL STAMINA]: Slam into the ground causing a massive explosion. The higher in the air you are the more powerful the explosion. Be careful though since this move will hurt a lot if abused too much.
+__Smash__ - Press Z in the air [CONSUMES ALL STAMINA]: Slam into the ground causing a massive explosion. The higher in the air you are the more powerful the explosion. Be careful though since this move will hurt a lot if abused too much.
 
 ### Weapon Changes
 
-Strawberry Launcher (Blaster) - Shoots 6 bullets in spurts, has the same fire-rate as a shotgun (Inspired by Celeste)
+__Strawberry Launcher (Blaster)__ - Shoots 6 bullets in spurts, has the same fire-rate as a shotgun (Inspired by Celeste)
 
-Snowball Launcher (Railgun) - Shoots a massive snowball (BFG bullet) at high speeds. Note that this does not have the BFG laser tracker thing that the normal bullet has. (Inspired by Celeste)
+__Snowball Launcher (Railgun)__ - Shoots a massive snowball (BFG bullet) at high speeds. Note that this does not have the BFG laser tracker thing that the normal bullet has. (Inspired by Celeste)
 
-Seeker (BFG) - Acts as an aggressive sentry. Does not move once fired, but if an enemy or group of enemies approach it, they will be obliterated by the bullet(s). (Inspired by Celeste)
+__Seeker (BFG)__- Acts as an aggressive sentry. Does not move once fired, but if an enemy or group of enemies approach it, they will be obliterated by the bullet(s). (Inspired by Celeste)
 
-Rocket Jumper (Rocket Launcher) - No longer does any damage, meaning it also doesn't do any damage to the player. As a result, you can use this to rocket jump great distances. (Inspired by TF2)
+__Rocket Jumper (Rocket Launcher)__ - No longer does any damage, meaning it also doesn't do any damage to the player. As a result, you can use this to rocket jump great distances. (Inspired by TF2)
 
-Crystal Shotgun (Grenade Launcher) - Shoots 4 small damaging grenades along with a railgun blast.
+__Crystal Shotgun (Grenade Launcher)__ - Shoots 4 small damaging grenades along with a railgun blast.
 
 The other weapons were slightly modified to have more bullets or firepower or left untouched since I didn't feel that they needed to be changed that much to fit the mod. 
 
@@ -65,13 +65,13 @@ To view your records, either press F7 or type into the console 'records'.
 
 ### New UI elements
 
-Stamina: The amount of air time you can get from the new abilities are limited, so you can get exhausted from stamina. You have 10 stamina in total, and to regain it you have to touch the ground again (similar to Celeste).
+__Stamina:__ The amount of air time you can get from the new abilities are limited, so you can get exhausted from stamina. You have 10 stamina in total, and to regain it you have to touch the ground again (similar to Celeste).
 
-Dash: An indicator of whether or not your dash is on cooldown. 
+__Dash:__ An indicator of whether or not your dash is on cooldown. 
 
-Speed: This is the absolute value of how fast you're going.
+__Speed:__ This is the absolute value of how fast you're going.
 
-Time: A timer counting in seconds since the beginning of the level. You can use this to track how much time you're spending on a level. 
+__Time:__ A timer counting in seconds since the beginning of the level. You can use this to track how much time you're spending on a level. 
 
 ## Deliverables
 
