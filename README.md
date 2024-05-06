@@ -8,7 +8,9 @@ Celeste, a 2D platformer game, has a lot of unique movement features and obstacl
 ## Download Instructions:
 
 Download the 'mods' folder from Releases
-Unzip mods and then place the folder in your Quake 2 folder (Usually located here: C:\Program Files (x86)\Steam\steamapps\common\Quake 2)
+
+Unzip 'mods' and then place the folder in your Quake 2 folder (Usually located here: C:\Program Files (x86)\Steam\steamapps\common\Quake 2)
+
 If necessary, go to the Properties of the 'quake2 - MOD' and change the directory to be your Quake2 directory inside the 'Target:' bar so that you can actually play the mod (DONT CHANGE +set game mods)
 
 **NOTE: This mod does NOT work with the remastered version. If opening the mod with the shortcut provided with the folder somehow opened the remastered version, you can follow an alternate method if you own the game on Steam. Unfortunately, this is the only other way I know of.**
