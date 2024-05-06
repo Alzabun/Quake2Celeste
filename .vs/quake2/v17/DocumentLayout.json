@@ -3,6 +3,22 @@
   "WorkspaceRootPath": "C:\\Users\\Sampl\\Quake2Celeste\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_cmds.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_cmds.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\p_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_client.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,20 +27,8 @@
       "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_hud.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_cmds.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_cmds.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_items.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_items.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_local.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\p_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\p_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C50658D3-5399-49E0-B84E-296D8E01854F}|ctf\\ctf.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\ctf\\g_ai.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -45,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{F575AF4A-7BDD-47F6-B65F-F43C514E0069}|quake2.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\client\\menu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{F575AF4A-7BDD-47F6-B65F-F43C514E0069}|quake2.vcxproj|solutionrelative:client\\menu.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|solutionrelative:game\\g_weapon.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{99BC3F01-A7EE-4881-939F-8A5EB75E1973}|game\\game.vcxproj|C:\\Users\\Sampl\\Quake2Celeste\\game\\g_combat.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -102,28 +102,11 @@
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "p_client.c",
-              "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_client.c",
-              "RelativeDocumentMoniker": "game\\p_client.c",
-              "ToolTip": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_client.c",
-              "RelativeToolTip": "game\\p_client.c",
-              "ViewState": "AQIAABUGAAAAAAAAAAAvwFQGAABzAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-04-23T22:01:50.621Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "g_local.h",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_local.h",
               "RelativeDocumentMoniker": "game\\g_local.h",
@@ -131,38 +114,37 @@
               "RelativeToolTip": "game\\g_local.h",
               "ViewState": "AQIAAEUDAAAAAAAAAAAAAFMDAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-04-23T22:17:43.553Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-23T22:17:43.553Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "g_cmds.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_cmds.c",
               "RelativeDocumentMoniker": "game\\g_cmds.c",
               "ToolTip": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_cmds.c",
               "RelativeToolTip": "game\\g_cmds.c",
-              "ViewState": "AQIAAGAEAAAAAAAAAAAcwJADAAAiAAAA",
+              "ViewState": "AQIAAAMEAAAAAAAAAAAcwB8EAACsAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-04-23T22:16:55.095Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "p_weapon.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_weapon.c",
               "RelativeDocumentMoniker": "game\\p_weapon.c",
               "ToolTip": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_weapon.c",
               "RelativeToolTip": "game\\p_weapon.c",
-              "ViewState": "AQIAAKgCAAAAAAAAAAAUwNUCAAAiAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAALAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-05-05T20:06:25.687Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "g_items.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_items.c",
               "RelativeDocumentMoniker": "game\\g_items.c",
@@ -170,12 +152,11 @@
               "RelativeToolTip": "game\\g_items.c",
               "ViewState": "AQIAABcFAAAAAAAAAAD4v54FAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-04-30T01:34:20.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T01:34:20.818Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "cl_main.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\client\\cl_main.c",
               "RelativeDocumentMoniker": "client\\cl_main.c",
@@ -187,7 +168,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 7,
               "Title": "g_ai.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\ctf\\g_ai.c",
               "RelativeDocumentMoniker": "ctf\\g_ai.c",
@@ -199,7 +180,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
               "Title": "p_hud.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_hud.c",
               "RelativeDocumentMoniker": "game\\p_hud.c",
@@ -207,12 +188,11 @@
               "RelativeToolTip": "game\\p_hud.c",
               "ViewState": "AQIAAJUBAAAAAAAAAAAcwKUBAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-04-30T21:53:23.16Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-30T21:53:23.16Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "g_save.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_save.c",
               "RelativeDocumentMoniker": "game\\g_save.c",
@@ -224,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 11,
               "Title": "menu.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\client\\menu.c",
               "RelativeDocumentMoniker": "client\\menu.c",
@@ -236,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "g_spawn.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_spawn.c",
               "RelativeDocumentMoniker": "game\\g_spawn.c",
@@ -248,15 +228,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 1,
               "Title": "g_weapon.c",
               "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_weapon.c",
               "RelativeDocumentMoniker": "game\\g_weapon.c",
               "ToolTip": "C:\\Users\\Sampl\\Quake2Celeste\\game\\g_weapon.c",
               "RelativeToolTip": "game\\g_weapon.c",
-              "ViewState": "AQIAAAwCAAAAAAAAAAD4vwYCAAARAAAA",
+              "ViewState": "AQIAACADAAAAAAAAAADgvzQDAAAyAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-04-24T23:06:00.897Z"
+              "WhenOpened": "2024-04-24T23:06:00.897Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "p_client.c",
+              "DocumentMoniker": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_client.c",
+              "RelativeDocumentMoniker": "game\\p_client.c",
+              "ToolTip": "C:\\Users\\Sampl\\Quake2Celeste\\game\\p_client.c",
+              "RelativeToolTip": "game\\p_client.c",
+              "ViewState": "AQIAAHsGAAAAAAAAAAAvwFQGAABzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-04-23T22:01:50.621Z"
             },
             {
               "$type": "Document",

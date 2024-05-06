@@ -818,7 +818,7 @@ void bfg_think (edict_t *self)
 		dmg = 10;
 
 	ent = NULL;
-	while ((ent = findradius(ent, self->s.origin, 512)) != NULL) // 256 (was 256 chosen because of bits or a coincendence? ill just go off bits just in case)
+	while ((ent = findradius(ent, self->s.origin, 128)) != NULL) // 256 (was 256 chosen because of bits or a coincendence? ill just go off bits just in case)
 	{
 		if (ent == self)
 			continue;

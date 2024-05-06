@@ -1053,7 +1053,7 @@ void Cmd_ModHelp2_f(edict_t* ent) {
 	gi.cprintf(ent, PRINT_HIGH, "Rocket Jumper (formerly Rocket Launcher): Does no damage, but you can now rocket jump with no consequences.\n\n");
 	gi.cprintf(ent, PRINT_HIGH, "Crystal Shotgun (formerly Grenade Launcher): Shoots 4 small damaging grenades along with a railgun blast.\n\n");
 
-	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level!\n");
+	gi.cprintf(ent, PRINT_HIGH, "Finally, you are basically speedrunning since there is now a timer which stops when you beat a level! These times are recorded in seconds only\n");
 	gi.cprintf(ent, PRINT_HIGH, "To view your times, use this command: 'records'\n");
 	gi.cprintf(ent, PRINT_HIGH, "These records are saved to the file 'records.txt' as long as you're using this mod, so they won't be erased.\n");
 }
